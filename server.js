@@ -238,89 +238,95 @@ addRole = () => {
 // THEN I am prompted to enter the employee’s first name, last name, role, and manager, and that employee is added to the database
 
 addEmployee = () => {
-  db.query("SELECT * FROM role", function (err, results) {
-    if (err) throw err;
+  //will figure out how to get id when i have the chance
+  // db.query("SELECT * FROM role", function (err, results) {
+  //   if (err) throw err;
 
-    inquirer
-      .prompt([
-        {
-          type: "input",
-          name: "fName",
-          message: "new employee's first name",
-          validate: (fname) => {
-            if (fname) {
-              return true;
-            } else {
-              console.log("Please enter employee's first name");
-              return false;
-            }
-          },
-        },
-        {
-          type: "input",
-          name: "lName",
-          message: "new employee's Last name",
-          validate: (lname) => {
-            if (lname) {
-              return true;
-            } else {
-              console.log("Please enter employee's last name");
-              return false;
-            }
-          },
-        },
-        {
-          type: "rawlist",
-          name: "role",
-          message: "Select Role",
-          choices: function () {
-            var choiceArr = [];
-            for (i = 0; i < results.length; i++) {
-              choiceArr.push(results[i].title);
-            }
-            return choiceArr;
-          },
-        },
-        {
-          type: "number",
-          name: "manager",
-          message: "Enter Manager ID",
-          validate: (manager) => {
-            if (isNaN(manager) === false) {
-              return true;
-            } else {
-              console.log("Please enter manager's ID");
-              return false;
-            }
-          },
-        },
-      ])
-      .then((answer) => {
-        db.query(
-          "INSERT INTO employee SET ?",
-          {
-            first_name: answer.fName,
-            last_name: answer.lName,
-            role_id: answer.role,
-            manager_id: answer.manager,
-          },
-
-          (err) => {
-            if (err) throw err;
-            console.log(
-              " Added " +
-                answer.fName +
-                " " +
-                answer.lName +
-                " to our employees!"
-            );
-
-            PromptUser();
+  inquirer
+    .prompt([
+      {
+        type: "input",
+        name: "fName",
+        message: "new employee's first name",
+        validate: (fname) => {
+          if (fname) {
+            return true;
+          } else {
+            console.log("Please enter employee's first name");
+            return false;
           }
-        );
-      });
-  });
+        },
+      },
+      {
+        type: "input",
+        name: "lName",
+        message: "new employee's Last name",
+        validate: (lname) => {
+          if (lname) {
+            return true;
+          } else {
+            console.log("Please enter employee's last name");
+            return false;
+          }
+        },
+      },
+      {
+        type: "number",
+        name: "role",
+        message: "Enter role number",
+        validate: (role) => {
+          if (isNaN(role) === false) {
+            return true;
+          } else {
+            console.log("Please enter role number");
+            return false;
+          }
+        },
+        // choices: function () {
+        //   var choiceArr = [];
+        //   for (i = 0; i < results.length; i++) {
+        //     choiceArr.push(res[i].title);
+        //   }
+        //   return choiceArr;
+        // },
+      },
+      {
+        type: "number",
+        name: "manager",
+        message: "Enter Manager ID",
+        validate: (manager) => {
+          if (isNaN(manager) === false) {
+            return true;
+          } else {
+            console.log("Please enter manager's ID");
+            return false;
+          }
+        },
+      },
+    ])
+    .then((answer) => {
+      db.query(
+        "INSERT INTO employee SET ?",
+        {
+          first_name: answer.fName,
+          last_name: answer.lName,
+          role_id: answer.role,
+          manager_id: answer.manager,
+        },
+
+        (err) => {
+          if (err) throw err;
+          console.log(
+            " Added " + answer.fName + " " + answer.lName + " to our employees!"
+          );
+
+          PromptUser();
+        }
+      );
+    });
 };
+// );
+// };
 
 // WHEN I choose to update an employee role
 // THEN I am prompted to select an employee to update and their new role and this information is updated in the database
@@ -354,6 +360,7 @@ updateEmployee = () => {
               {
                 type: "rawlist",
                 name: "role",
+                message: "Select Title",
                 choices: function () {
                   var choiceArr = [];
                   for (i = 0; i < results.length; i++) {
@@ -361,7 +368,6 @@ updateEmployee = () => {
                   }
                   return choiceArr;
                 },
-                message: "Select Title",
               },
               {
                 type: "number",
