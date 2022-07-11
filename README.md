@@ -1,8 +1,4 @@
-package.json
-"scripts": {
-"test": "jest",
-"start": "node server.js"
-},
+
 
 # Employee-Tracker
 
@@ -11,6 +7,8 @@ package.json
 AS A business owner
 I WANT to be able to view and manage the departments, roles, and employees in my company
 SO THAT I can organize and plan my business
+
+there are still some bugs where role and manager only shows number rather than the individual.  Will fix when I have the oppotunity
 
 ## Table of Content
 
