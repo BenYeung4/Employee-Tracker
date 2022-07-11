@@ -10,6 +10,8 @@ SO THAT I can organize and plan my business
 
 there are still some bugs where role and manager only shows number rather than the individual.  Will fix when I have the oppotunity
 
+https://drive.google.com/file/d/1FMmVCt0vOtvoCwW4aG6z8csjwKjPa24F/view
+
 ## Table of Content
 
 - [Installation](#Installation)
